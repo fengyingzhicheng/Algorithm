@@ -1,4 +1,6 @@
-package com.southgis.code03;
+package com.southgis.day03.huiwen;
+
+import com.southgis.day03.ListNode;
 
 /**
  * @className: Solution
@@ -8,17 +10,9 @@ package com.southgis.code03;
  * @date: 2020/11/18 14:32
  */
 public class Solution {
-    private static class ListNode {
-        char value;
-        ListNode next;
-    }
-
-
     public static void main(String[] args) {
 
     }
-
-
     /**
      * 基本思想：
      * 快指针每次移动两格 慢指针每次移动一格 最终慢指针位置就是中间位置
@@ -38,7 +32,7 @@ public class Solution {
         ListNode fast = head;
         ListNode prev = null;
 
-        while (fast != null && fast.next != null) {
+        while (fast != null && fast.next != null) { //log2^N
             fast = fast.next.next;
             ListNode next = slow.next;
             slow.next = prev;

@@ -1,4 +1,4 @@
-package com.southgis.code01;
+package com.southgis.day01;
 
 import java.util.Arrays;
 import java.util.LinkedList;

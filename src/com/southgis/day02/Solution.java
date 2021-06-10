@@ -1,4 +1,4 @@
-package com.southgis.code02;
+package com.southgis.day02;
 
 /**
  * @className: Solution
