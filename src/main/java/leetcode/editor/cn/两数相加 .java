@@ -44,14 +44,17 @@ package leetcode.editor.cn;
 class 两数相加 {
     public static void main(String[] args) {
         Solution solution = new 两数相加().new Solution();
-
+        ListNode l1 = new ListNode(2, new ListNode(4, new ListNode(9)));
+        ListNode l2 = new ListNode(5, new ListNode(6, new ListNode(4, new ListNode(9))));
+        solution.addTwoNumbers(l1, l2);
     }
 //leetcode submit region begin(Prohibit modification and deletion)
 
     //  Definition for singly-linked list.
-    public class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
+
 
         ListNode() {
         }
@@ -68,8 +71,55 @@ class 两数相加 {
 
     class Solution {
         public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-            return new ListNode();
+            //保证 l1最长
+            ListNode p = l1;
+            ListNode q = l2;
+
+            while (p != null && q != null) {
+                p = p.next;
+                q = q.next;
+            }
+            if (p == null) {
+                ListNode temp = l1;
+                l1 = l2;
+                l2 = temp;
+            }
+            //l2的值累加到l1上
+
+            p = l1;
+            q = l2;
+
+            int data = 0;
+            while (p != null && q != null) {
+                //余数
+                int temp = p.val;
+                p.val = (p.val + q.val + data) % 10;
+                data = (temp + q.val + data) / 10;
+                p = p.next;
+                q = q.next;
+            }
+
+            while (p != null) {
+                int temp = p.val;
+                p.val = (p.val + data) % 10;
+                data = (temp + data) / 10;
+                p = p.next;
+            }
+
+            if (data != 0) {
+                p = l1;
+                while (p.next != null) {
+                    p = p.next;
+                }
+                ListNode addNode = new ListNode();
+                addNode.val = data;
+                p.next = addNode;
+            }
+
+            //最后返回 l1
+            return l1;
         }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 

@@ -45,31 +45,64 @@ package leetcode.editor.cn;
 //// Related Topics 数组 哈希表 👍 13343 👎 0
 //
 
-class 两数之和{
-	public static void main(String[] args) {
-		Solution solution = new 两数之和().new Solution();
-		
-	}
-//leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-		return solution1(nums, target);
-	}
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-	private int[] solution1(int[] nums, int target) {
-		int[] result = new int[2];
+class 两数之和 {
+    public static void main(String[] args) {
+        Solution solution = new 两数之和().new Solution();
+        System.out.println(Arrays.toString(solution.twoSum(new int[]{1, 2, 3, 4}, 6)));
 
-		for (int i = 0; i < nums.length; i++) {
-			for (int j = i + 1; j < nums.length; j++) {
-				if (nums[i] + nums[j] == target) {
-					result[0] = i;
-					result[1] = j;
-				}
-			}
-		}
-		return result;
-	}
-}
+    }
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int[] twoSum(int[] nums, int target) {
+            return solution2(nums, target);
+        }
+
+        /**
+         * 这样子实现有O(n²)时间复杂度
+         *
+         * @param nums   数组
+         * @param target 目标和值
+         * @return
+         */
+        private int[] solution1(int[] nums, int target) {
+
+            for (int i = 0; i < nums.length; i++) {
+                for (int j = i + 1; j < nums.length; j++) {
+                    if (nums[i] + nums[j] == target) {
+                        return new int[]{
+                                i, j
+                        };
+                    }
+                }
+            }
+            return new int[0];
+        }
+
+        /**
+         * 这样子实现有O(n²)时间复杂度
+         *
+         * @param nums   数组
+         * @param target 目标和值
+         * @return
+         */
+        private int[] solution2(int[] nums, int target) {
+            Map<Integer, Integer> hashTable = new HashMap<>();
+
+            for (int i = 0; i < nums.length; i++) {
+                if (hashTable.containsKey(target - nums[i])) {
+                    return new int[]{hashTable.get(target - nums[i]), i};
+                } else {
+                    hashTable.put(nums[i], i);
+                }
+            }
+            return new int[0];
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
