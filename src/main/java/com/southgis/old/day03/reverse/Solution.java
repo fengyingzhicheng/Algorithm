@@ -1,6 +1,6 @@
-package com.southgis.day03.reverse;
+package com.southgis.old.day03.reverse;
 
-import com.southgis.day03.ListNode;
+import com.southgis.old.day03.ListNode;
 
 /**
  * @className: reverseList

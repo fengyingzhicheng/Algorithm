@@ -1,6 +1,6 @@
-package com.southgis.day03.huiwen;
+package com.southgis.old.day03.huiwen;
 
-import com.southgis.day03.ListNode;
+import com.southgis.old.day03.ListNode;
 
 /**
  * @className: Solution
