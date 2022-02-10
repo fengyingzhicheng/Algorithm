@@ -63,27 +63,37 @@ class 从前序与中序遍历序列构造二叉树 {
 
     class Solution {
         public TreeNode buildTree(int[] preorder, int[] inorder) {
-            return build(preorder,0,preorder.length-1,
-                    inorder,0,inorder.length-1);
+            return build(preorder, 0, preorder.length - 1,
+                    inorder, 0, inorder.length - 1);
         }
 
         public TreeNode build(int[] preorder, int preStart, int preEnd,
                               int[] inorder, int inStart, int inEnd) {
             TreeNode root = new TreeNode();
+            //base case
+            if (preStart > preEnd) {
+                return null;
+            }
 
 
-            root.val = preorder[0];
+            root.val = preorder[preStart];
 
-            int index = 0;
-            //inorder中找到=preorder[0]
+            int index = inStart;
+            //inorder中找到=preorder[preStart]
+            for (int i = inStart; i <= inEnd; i++) {
+                if (inorder[i] == preorder[preStart]) {
+                    index = i;
+                    break;
+                }
+            }
 
-            int leftSize = 1;
             //找到当前树根节点的左子树大小
+            int leftSize = index - inStart;
 
             root.left = build(preorder, preStart + 1, preStart + leftSize,
                     inorder, inStart, index - 1);
-            root.right = build(preorder, preStart + leftSize + 1,
-                    preEnd, inorder, index + 1, inEnd);
+            root.right = build(preorder, preStart + leftSize + 1, preEnd,
+                    inorder, index + 1, inEnd);
             return root;
 
         }
