@@ -36,76 +36,121 @@ package leetcode.editor.cn;
 // 
 // Related Topics 数组 回溯 👍 1182 👎 0
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 class N皇后 {
     public static void main(String[] args) {
         Solution solution = new N皇后().new Solution();
-        String[][] nums = new String[4][4];
-        List<Map<Integer, Integer>> list = new ArrayList<Map<Integer, Integer>>();
-        for (int i = 0; i < 4; i++) {
-            Map<Integer, Integer> map = new HashMap<>();
-            map.put(i, i);
-            list.add(map);
+        String[][] board = new String[4][4];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (i == j) {
+                    board[i][j] = "Q";
+                } else {
+                    board[i][j] = ".";
+                }
+            }
         }
-        List<String> route = solution.getRoute(nums, list);
+
+        List<String> route = solution.toListString(board);
         System.out.println(route);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        List<List<String>> result;
+        List<List<String>> result = new ArrayList<>();
 
         public List<List<String>> solveNQueens(int n) {
-            String nums[][] = new String[n][n];
-
-            List<Map<Integer, Integer>> path = new LinkedList<>();
-            backtrack(nums, path);
+            String[][] board = new String[n][n];
+            for (int i = 0; i < board.length; i++) {
+                for (int i1 = 0; i1 < board.length; i1++) {
+                    board[i][i1] = ".";
+                }
+            }
+            backtrack(board, 0);
             return result;
         }
 
         /**
          * 回溯法
-         *
-         * @param nums
-         * @param nodes 存储 皇后Q的i,j索引 表示第几行第几列
          */
-        private void backtrack(String nums[][], List<Map<Integer, Integer>> nodes) {
+        private void backtrack(String[][] board, int row) {
             //如果路径上已经满了N个 表示合适的皇后位置 返回
-            if (nodes.size() == nums.length) {
-                result.add(getRoute(nums, nodes));
+            if (row == board.length) {
+                //做完选择后已经每个都选好了
+                result.add(toListString(board));
                 return;
             }
-            Map<Integer, Integer> node = nodes.get(nodes.size() - 1);
+
+            //往右移动
+            for (int column = 0; column < board.length; column++) {
+                if (!isValid(board, row, column)) {
+                    //不合法的跳过
+                    continue;
+                }
+
+                //做选择
+                board[row][column] = "Q";
+
+                //进入下一行
+                backtrack(board, row + 1);
+
+                //撤销选择
+                board[row][column] = ".";
+
+            }
+
+
+        }
+
+        private List<String> toListString(String[][] board) {
+            List<String> list = new ArrayList<>();
+            for (String[] strings : board) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (String string : strings) {
+                    stringBuilder.append(string);
+                }
+                list.add(stringBuilder.toString());
+            }
+            return list;
 
         }
 
         /**
-         * 加入当前的
+         * 判断当前row column是否合法
          *
-         * @param nums
-         * @param nodes
+         * @param board
+         * @param row
+         * @param column
          * @return
          */
-        private List<String> getRoute(String[][] nums, List<Map<Integer, Integer>> nodes) {
-            Map<Integer, Integer> map = nodes.stream().flatMap(n -> n.entrySet().stream()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-            List<String> route = new ArrayList<>();
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < nums.length; i++) {
-                for (int j = 0; j < nums.length; j++) {
-                    Integer data = map.get(i);
-                    if (data != null && data == j) {
-                        stringBuilder.append("Q");
-                    } else {
-                        stringBuilder.append(".");
-                    }
+        private boolean isValid(String[][] board, int row, int column) {
+            int n = board.length;
+            //同一竖行相同返回false
+            for (int i = 0; i < row; i++) {
+                if ("Q".equals(board[i][column])) {
+                    return false;
                 }
-                route.add(stringBuilder.toString());
-                stringBuilder = new StringBuilder();
             }
-            return route;
+
+            // 检查右上方是否有皇后冲突
+            for (int i = row - 1, j = column + 1; i >= 0 && j < n; i--, j++) {
+                if ("Q".equals(board[i][j])) {
+                    return false;
+                }
+            }
+
+            // 检查左上方是否有皇后冲突
+            for (int i = row - 1, j = column - 1; i >= 0 && j >= 0; i--, j--) {
+                if ("Q".equals(board[i][j])) {
+                    return false;
+                }
+            }
+
+            return true;
         }
+
 
     }
 //leetcode submit region end(Prohibit modification and deletion)
