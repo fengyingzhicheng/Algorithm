@@ -36,41 +36,58 @@ import java.util.List;
 class 螺旋矩阵 {
     public static void main(String[] args) {
         Solution solution = new 螺旋矩阵().new Solution();
-
+        List<Integer> list = solution.spiralOrder(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
+        list.forEach(System.out::print);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        //TODO
         public List<Integer> spiralOrder(int[][] matrix) {
             int xLeft = 0;
             int yLeft = 0;
             int yRight = matrix.length - 1;
             int xRight = matrix[matrix.length - 1].length - 1;
             List<Integer> list = new ArrayList<>();
-            while (xLeft < xRight && yLeft < yRight) {
-                for (int i = xLeft; i < xRight; i++) {
+
+            cycle(matrix,xLeft,yLeft,xRight,yRight,list);
+            return list;
+        }
+
+        private void cycle(int[][] matrix,int xLeft, int yLeft, int xRight, int yRight, List<Integer> list) {
+            if (xLeft > xRight || yLeft > yRight) {
+                return;
+            }
+
+            if (xLeft == xRight) {
+                for (int i = yLeft; i <=yRight ; i++) {
+                    list.add(matrix[i][xLeft]);
+                }
+                return ;
+            }
+
+            if (yLeft == yRight) {
+                for (int i = xLeft; i <=xRight ; i++) {
                     list.add(matrix[yLeft][i]);
                 }
-
-                for (int i = yLeft; i < yRight; i++) {
-                    list.add(matrix[xRight][i]);
-                }
-
-                for (int i = xRight; i > xLeft; i--) {
-                    list.add(matrix[yRight][i]);
-                }
-
-                for (int i = yLeft; i < yRight; i++) {
-                    list.add(matrix[xRight][i]);
-                }
-
-                xLeft++;
-                yLeft++;
-                xRight--;
-                yRight--;
+                return ;
             }
-            return list;
+
+            for (int i = xLeft; i < xRight; i++) {
+                list.add(matrix[yLeft][i]);
+            }
+
+            for (int i = yLeft; i < yRight; i++) {
+                list.add(matrix[i][xRight]);
+            }
+
+            for (int i = xRight; i > xLeft; i--) {
+                list.add(matrix[yRight][i]);
+            }
+
+            for (int i = yRight; i >yLeft ; i--) {
+                list.add(matrix[i][xLeft]);
+            }
+            cycle(matrix,xLeft+1,yLeft+1,xRight-1,yRight-1,list);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
