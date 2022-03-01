@@ -48,17 +48,31 @@ package leetcode.editor.cn;
 // 
 // Related Topics 数组 二分查找 前缀和 滑动窗口 👍 956 👎 0
 
+import java.util.Arrays;
+
 class 长度最小的子数组 {
     public static void main(String[] args) {
         Solution solution = new 长度最小的子数组().new Solution();
-        solution.minSubArrayLen(7,new int[]{2,3,1,2,4,3});
+        solution.minSubArrayLen(7, new int[]{2, 3, 1, 2, 4, 3});
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        int min;
 
         public int minSubArrayLen(int target, int[] nums) {
+            return violenceSolution(target, nums);
+
+        }
+
+        /**
+         * 暴力解法
+         *
+         * @param target 目标值
+         * @param nums   数组
+         * @return
+         */
+        private int violenceSolution(int target, int[] nums) {
+            int min = 0;
             for (int slow = 0; slow < nums.length; slow++) {
                 int sum = 0;
                 int fast = slow;
@@ -79,7 +93,63 @@ class 长度最小的子数组 {
                 }
             }
             return min;
+        }
 
+        /**
+         * 前缀数组
+         *
+         * @param s 目标值
+         * @param nums   数组
+         * @return
+         */
+        private int arrayOfPrefixesSolution(int s, int[] nums) {
+            int length = nums.length;
+            int min = Integer.MAX_VALUE;
+            int[] preSum = getPreSum(nums, length);
+            for (int i = 0; i < preSum.length; i++) {
+                int target = s + preSum[i];
+                int left = 0;
+                int right = preSum.length ;
+
+
+            }
+            return min == Integer.MAX_VALUE ? 0 : min;
+        }
+
+        /**
+         * 获取前缀数组 O(n)
+         * @param nums
+         * @param length
+         * @return
+         */
+        private int[] getPreSum(int[] nums, int length) {
+            int[] preSum = new int[length + 1];
+            preSum[0] = 0;
+            for (int i = 1; i < preSum.length; i++) {
+                preSum[i] = preSum[i - 1] + nums[i - 1];
+            }
+            return preSum;
+        }
+
+        /**
+         * 滑动窗口
+         *
+         * @param s 目标值
+         * @param nums   数组
+         * @return
+         */
+        private int slidingWindowSolution(int s, int[] nums) {
+            int min = Integer.MAX_VALUE;
+            int sum = 0;
+            int left = 0;
+            for (int right = 0; right < nums.length; right++) {
+                sum += nums[right];
+                while (sum >= s) {
+                    min = Math.min(min, right - left + 1);
+                    sum -= nums[left++];
+                }
+            }
+            return min == Integer.MAX_VALUE ? 0 : min;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
