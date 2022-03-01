@@ -50,8 +50,6 @@ package leetcode.editor.cn;
 // 
 // Related Topics 数组 回溯 矩阵 👍 1117 👎 0
 
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.Arrays;
 
 class 解数独 {

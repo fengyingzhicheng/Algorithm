@@ -29,7 +29,10 @@ package leetcode.editor.cn;
 // 
 // Related Topics 数组 哈希表 双指针 二分查找 排序 👍 493 👎 0
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 class 两个数组的交集 {
     public static void main(String[] args) {

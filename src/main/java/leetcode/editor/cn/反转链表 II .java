@@ -34,8 +34,6 @@ package leetcode.editor.cn;
 // 进阶： 你可以使用一趟扫描完成反转吗？ 
 // Related Topics 链表 👍 1150 👎 0
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 class 反转链表II {
     public static void main(String[] args) {
         Solution solution = new 反转链表II().new Solution();

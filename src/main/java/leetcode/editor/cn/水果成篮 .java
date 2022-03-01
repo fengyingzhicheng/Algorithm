@@ -60,9 +60,7 @@ package leetcode.editor.cn;
 // Related Topics 数组 哈希表 滑动窗口 👍 163 👎 0
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 这题的意思是随便选中一个 往右数 计长度 遇到第三个类型的就停下来 求最大长度

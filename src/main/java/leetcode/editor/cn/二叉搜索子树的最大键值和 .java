@@ -64,10 +64,6 @@ package leetcode.editor.cn;
 // 
 // Related Topics 树 深度优先搜索 二叉搜索树 动态规划 二叉树 👍 79 👎 0
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 class 二叉搜索子树的最大键值和 {
     public static void main(String[] args) {
         Solution solution = new 二叉搜索子树的最大键值和().new Solution();

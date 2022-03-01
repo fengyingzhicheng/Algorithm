@@ -31,7 +31,6 @@ package leetcode.editor.cn;
 // 
 // Related Topics 树 二叉搜索树 动态规划 回溯 二叉树 👍 1121 👎 0
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
