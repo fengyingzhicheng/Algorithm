@@ -52,52 +52,23 @@ package leetcode.editor.cn;
 class 航班预订统计{
 	public static void main(String[] args) {
 		Solution solution = new 航班预订统计().new Solution();
-		
+		solution.corpFlightBookings(new int[][]{{1,2,10},{2,3,20},{2,5,25}},5);
 	}
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] corpFlightBookings(int[][] bookings, int n) {
-		int[] data = new int[n];
-		Difference difference=new Difference(data);
-		for (int[] booking : bookings) {
-			difference.increment(booking[0],booking[1],booking[2]);
+		int[] c = new int[n + 1];
+		for (int[] bo : bookings) {
+			int l = bo[0] - 1, r = bo[1] - 1, v = bo[2];
+			c[l] += v;
+			c[r + 1] -= v;
 		}
-		return difference.result();
-	}
-	// 差分数组工具类
-	class Difference {
-		// 差分数组
-		private int[] diff;
-
-		/* 输入一个初始数组，区间操作将在这个数组上进行 */
-		public Difference(int[] nums) {
-			assert nums.length > 0;
-			diff = new int[nums.length];
-			// 根据初始数组构造差分数组
-			diff[0] = nums[0];
-			for (int i = 1; i < nums.length; i++) {
-				diff[i] = nums[i] - nums[i - 1];
-			}
+		int[] ans = new int[n];
+		ans[0] = c[0];
+		for (int i = 1; i < n; i++) {
+			ans[i] = ans[i - 1] + c[i];
 		}
-
-		/* 给闭区间 [i,j] 增加 val（可以是负数）*/
-		public void increment(int i, int j, int val) {
-			diff[i] += val;
-			if (j + 1 < diff.length) {
-				diff[j + 1] -= val;
-			}
-		}
-
-		/* 返回结果数组 */
-		public int[] result() {
-			int[] res = new int[diff.length];
-			// 根据差分数组构造结果数组
-			res[0] = diff[0];
-			for (int i = 1; i < diff.length; i++) {
-				res[i] = res[i - 1] + diff[i];
-			}
-			return res;
-		}
+		return ans;
 	}
 
 
