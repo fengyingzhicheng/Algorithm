@@ -15,12 +15,14 @@ class Solution {
         Arrays.sort(cookies);
         int child=0;
         int cookie=0;
-
-        while (child < children.length && cookie < cookies.length) {
-            if(children[child]<=cookies[cookie]){ child++;
+        int count=0;
+        while (child<children.length&&cookie<cookies.length){
+            if (cookies[cookie]>=children[child]){
+                count++;
+                child++;
             }
             cookie++;
         }
-        return child;
+        return count;
     }
 }
