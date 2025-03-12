@@ -86,6 +86,12 @@ public class MinPathSum2 {
             int y = node.getY();
             int time = node.getTime();
 
+            // 提前到达终点则直接返回
+            if (x == N-1 && y == N-1) {
+                System.out.println(time);
+                return;
+            }
+
             if(time>dist[x][y]){
                 continue;
             }
@@ -98,7 +104,7 @@ public class MinPathSum2 {
                     continue;
                 }
 
-                calculateDistance(K, maze, dist, pq, time, x + dx, y + dy, visited);
+                calculateDistance(K, maze, dist, pq, time, x + dx, y + dy);
             }
         }
 
@@ -109,10 +115,7 @@ public class MinPathSum2 {
         System.out.println("No solution");
     }
 
-    private static void calculateDistance(int K, char[][] maze, int[][] dist, PriorityQueue<Node> pq, int time, int x1, int y1, boolean[][] visited) {
-        if (visited[x1][y1]) {
-            return;
-        }
+    private static void calculateDistance(int K, char[][] maze, int[][] dist, PriorityQueue<Node> pq, int time, int x1, int y1) {
         Node node1 = new Node(x1, y1, time + (maze[x1][y1] == '#' ? K : 1));
         if (dist[x1][y1] > node1.getTime()) {
             dist[x1][y1] = node1.getTime();
