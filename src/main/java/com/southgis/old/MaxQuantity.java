@@ -11,6 +11,14 @@ import java.util.Scanner;
 public class MaxQuantity {
 
 
+    /**
+     * 贪心错误
+     * 后续的块选择会影响结果
+     * @param args
+     * @author: 王军
+     * @date: 2025/03/12
+     */
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int N = scanner.nextInt();
@@ -62,4 +70,8 @@ public class MaxQuantity {
         }
         System.out.println(quantity);
     }
+
+    // 贪心算法 每块应该选择区间内列最大的 如果列总数相同选择最右的
+
+
 }
