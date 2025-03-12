@@ -72,7 +72,6 @@ public class MinPathSum2 {
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(Node::getTime));
         pq.add(new Node(0, 0, 0));
 
-        boolean[][] visited = new boolean[N][N];
         int[][] directions= {
                 {0, 1},
                 {1, 0},
@@ -96,7 +95,6 @@ public class MinPathSum2 {
                 continue;
             }
 
-            visited[x][y] = true;
             for (int[] direction : directions) {
                 int dx = direction[0];
                 int dy = direction[1];
